@@ -1,31 +1,32 @@
 import React from "react";
-import "./index.css";
-import App from "./App";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Typography, Box } from "@mui/material";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import AppLayout from "./AppLayout";
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright "} 
-      softwareengineer, {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import Login from "./Login";
+import SignUp from "./Signup";
+import BookPage from "./BookPage/BookPage";
+import SocialLoginRedirectHandler from "./SocialLoginRedirectHandler";
+import PrivateRoute from "./PrivateRoute";
 
 function AppRouter() {
   return (
-    <div>
-      <BrowserRouter>
+    <Router>
+      <AppLayout>
         <Routes>
-          <Route path="/" element={<App />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/sociallogin" element={<SocialLoginRedirectHandler />} />
+          <Route
+            path="/"
+            element={
+              <PrivateRoute>
+                <BookPage />
+              </PrivateRoute>
+            }
+          />
         </Routes>
-      </BrowserRouter>
-      <Box mt={5}>
-        <Copyright />
-      </Box>
-    </div>
+      </AppLayout>
+    </Router>
   );
 }
 

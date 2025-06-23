@@ -5,31 +5,52 @@ function AddBook({ addBook }) {
   const [book, setBook] = useState({
     title: "",
     author: "",
-    publisher: "",
-    userId: "",
+    publisher: ""
   });
 
+  // 입력 변경 핸들러
   const onInputChange = (e) => {
     setBook({ ...book, [e.target.name]: e.target.value });
   };
 
+  // 등록 버튼 클릭 시 처리
   const onButtonClick = () => {
-    addBook(book);
+    if (!book.title || !book.author || !book.publisher) {
+      alert("모든 항목을 입력해주세요.");
+      return;
+    }
+
+    addBook(book); // 상위에서 API 호출
     setBook({
       title: "",
       author: "",
-      publisher: "",
-      userId: ""
-    }); // 전체 초기화
+      publisher: ""
+    }); // 입력값 초기화
   };
 
   return (
     <Stack direction="row" spacing={2}>
-      <TextField label="Title" name="title" value={book.title} onChange={onInputChange} />
-      <TextField label="Author" name="author" value={book.author} onChange={onInputChange} />
-      <TextField label="Publisher" name="publisher" value={book.publisher} onChange={onInputChange} />
-      <TextField label="User ID" name="userId" value={book.userId} onChange={onInputChange} />
-      <Button variant="contained" onClick={onButtonClick}>제품 추가</Button>
+      <TextField
+        label="Title"
+        name="title"
+        value={book.title}
+        onChange={onInputChange}
+      />
+      <TextField
+        label="Author"
+        name="author"
+        value={book.author}
+        onChange={onInputChange}
+      />
+      <TextField
+        label="Publisher"
+        name="publisher"
+        value={book.publisher}
+        onChange={onInputChange}
+      />
+      <Button variant="contained" onClick={onButtonClick}>
+        도서 추가
+      </Button>
     </Stack>
   );
 }
